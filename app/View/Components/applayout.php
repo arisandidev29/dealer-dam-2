@@ -11,9 +11,10 @@ class applayout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public string $nama = 'nandi';
+    public function __construct($nama)
     {
-        //
+        $this->nama = $nama;
     }
 
     /**

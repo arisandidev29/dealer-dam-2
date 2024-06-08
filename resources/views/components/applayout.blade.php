@@ -29,7 +29,7 @@
             localStorage.removeItem("theme");
         </script>
     </head>
-    <body>
+    <body class="grid min-h-screen">
         <x-header />
         {{ $slot }}
         <x-footer />

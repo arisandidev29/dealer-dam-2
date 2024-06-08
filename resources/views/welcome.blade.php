@@ -1,4 +1,4 @@
-<x-applayout>
+<x-applayout >
     <main>
         <section
             class="hero min-h-screen"
