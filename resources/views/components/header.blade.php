@@ -26,13 +26,15 @@
                     </label>
                 </div>
                 <div class="flex-1 px-2 mx-2 text-white text-2xl">
-                    Dealer <span class="text-yellow-500"> DAM</span>
+                    <a href="{{ route('home') }}">
+                        Dealer <span class="text-yellow-500"> DAM</span>
+                    </a>
                 </div>
                 <div class="flex-none hidden lg:block">
                     <ul class="menu menu-horizontal text-white">
                         <!-- Navbar menu content here -->
                         <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a >Product</a></li>
+                        <li><a href="{{ route('products') }}">Product</a></li>
                         <li><a href="{{ route('contact') }}">Contact Us</a></li>
                     </ul>
                 </div>
@@ -58,7 +60,7 @@
                             />
                         </svg>
                     </label>
-                    <a href=""
+                    <a href="{{ route('login') }}"
                         ><button
                             class="btn bg-orange-500 text-white border-none"
                         >
@@ -76,8 +78,12 @@
             ></label>
             <ul class="menu p-4 w-80 min-h-full bg-base-200 gap-4">
                 <!-- Sidebar content here -->
-                <li class="bg-red-500 text-white rounded-sm"><a href="{{ route('home') }}">Home</a></li>
-                <li class="bg-red-500 text-white rounded-sm"><a>Product</a></li>
+                <li class="bg-red-500 text-white rounded-sm">
+                    <a href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="bg-red-500 text-white rounded-sm">
+                    <a href="{{ route('products') }}">Product</a>
+                </li>
                 <li class="bg-red-500 text-white rounded-sm">
                     <a href="{{ route('contact') }}">Contact Us</a>
                 </li>

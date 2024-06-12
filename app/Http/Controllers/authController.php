@@ -13,8 +13,13 @@ class authController extends Controller
 
     public function register()
      {
-        
+       return view("auth.register");
      } 
+
+    public function profilePic()
+    {
+        return view("auth.profile-pic");
+    }
 }
 
 

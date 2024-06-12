@@ -1,3 +1,8 @@
+@props([
+    "header" => true,
+    'footer' => true 
+    ])
+
 <!doctype html>
 <html lang="en" class="dark">
     <head>
@@ -30,8 +35,13 @@
         </script>
     </head>
     <body class="grid min-h-screen">
-        <x-header />
+        @if($header)
+          <x-header />
+        @endif
         {{ $slot }}
-        <x-footer />
+
+        @if($footer)
+            <x-footer />
+        @endif
     </body>
 </html>

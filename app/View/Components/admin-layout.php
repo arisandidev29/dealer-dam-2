@@ -6,15 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class applayout extends Component
+class admin-layout extends Component
 {
     /**
      * Create a new component instance.
      */
-    public string $nama = 'nandi';
-    public function __construct($nama)
+    public function __construct()
     {
-        $this->nama = $nama;
+        //
     }
 
     /**
@@ -22,6 +21,6 @@ class applayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.applayout');
+        return view('components.admin-layout');
     }
 }
