@@ -1,4 +1,5 @@
 <x-admin-layout>
+	
 	<div class="text-sm breadcrumbs my-4">
 		<ul>
 			<li><a href="{{ route('dashboard') }}">Dashboard</a></li>
@@ -7,33 +8,67 @@
 		</ul>
 	</div>
 
+	@if(session("status"))
+		<div role="alert" class="alert alert-success my-4">
+		  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+		  <span>{{ session("status") }}</span>
+		</div>
+	@endif
+
+
 	<h1 class="text-red-500 text-2xl font-semibold">Create Product</h1>
 
 	<div class="">
-		<form action="" class="my-6 grow flex gap-4 flex-col-reverse md:flex-row  ">
+		<form method="post" action="{{ route('dashboard.product.store') }}" enctype="multipart/form-data" class="my-6 grow flex gap-4 flex-col-reverse md:flex-row  ">
+			@csrf
 			<div class="grid grid-cols-2 gap-4 grow">
 				<div>
 					<p class="text-sm">Name</p>
-					<label class="input input-bordered flex items-center gap-2">
+					<label class="input input-bordered flex items-center gap-2 @error('name') border-red-500 @enderror">
 						<input
 							type="text"
 							class="grow"
 							placeholder="BeAt"
 							name="name"
+							value="{{ old("name") }}"
 						/>
 					</label>
+					@error('name')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+					@enderror
 				</div>
 
 				<div>
 					<p class="text-sm">Year</p>
 					<label class="input input-bordered flex items-center gap-2">
 						<input
-							type="year"
+							type="number" 
+							min="1900"
+							max="2099" 
+							step="1" 
+							value="{{ old("year", '2024') }}"
 							class="grow"
 							placeholder="Year"
 							name="year"
 						/>
 					</label>
+
+				</div>
+
+				<div class="col-span-2">
+					<p class="text-sm">Price</p>
+					<label class="input input-bordered flex items-center gap-2 @error('name') border-red-500 @enderror">
+						<input
+							type="text"
+							class="grow"
+							placeholder="18000000"
+							name="price"
+							value="{{ old("price") }}"
+						/>
+					</label>
+					@error('price')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+					@enderror
 				</div>
 
 				{{-- file input --}}
@@ -55,16 +90,25 @@
 						</svg>
 					</div>
 					<div class="collapse-content">
+						<div id="image_container" class="my-4 h-32 grid place-content-center">
+							
+						</div>
 						<input
 							type="file"
 							class="file-input file-input-bordered w-full"
 							name="images"
+							id="file_upload"
 						/>
 
+						@error("images")
+							<p class="text-red-500 mt-1 ">{{ $message }}</p>
+						@enderror
 					</div>
 				</div>
 
 				{{-- Mesin--}}
+
+			
 				<div
 					class="collapse collapse-arrow bg-base-200 gap-2 col-span-2"
 				>
@@ -89,31 +133,59 @@
 							/>
 						</svg>
 					</div>
-					<div class="collapse-content grid grid-cols-2 gap-2P">
-						<input
-							type="text"
-							placeholder="Tipe Mesin"
-							class="input input-bordered w-full"
-							name="tipe-Mesin"
-						/>
-						<input
-							type="text"
-							placeholder="Kopling"
-							class="input input-bordered w-full"
-							name="kopling"
-						/>
-						<input
-							type="text"
-							placeholder="Busi"
-							class="input input-bordered w-full"
-							name="busi"
-						/>
-						<input
-							type="text"
-							placeholder="sistem bahann bakar"
-							class="input input-bordered w-full"
-							name="sistem-bahan-bakar"
-						/>
+					<div class="collapse-content grid grid-cols-2 gap-2">
+						<div>
+							<input
+								type="text"
+								placeholder="Tipe Mesin"
+								class="input input-bordered w-full @error('tipe_mesin') border-red-500 @enderror"
+								name="tipe_mesin"
+								value="{{ old("tipe_mesin") }}"
+							/>
+							@error('tipe_mesin')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+							@enderror
+						</div>
+
+						<div>
+							<input
+								type="text"
+								placeholder="Kopling"
+								class="input input-bordered w-full @error('kopling') border-red-500 @enderror"
+								name="kopling"
+								value="{{ old("kopling") }}"
+							/>
+
+							@error('kopling')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+							@enderror
+						</div>
+						<div>
+							<input
+								type="text"
+								placeholder="Busi"
+								class="input input-bordered w-full @error('busi') border-red-500 @enderror"
+								name="busi"
+								value="{{ old("busi") }}"
+							/>
+							@error('busi')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+							@enderror
+						</div>
+						
+						<div>
+							<input
+								type="text"
+								placeholder="sistem bahann bakar"
+								class="input input-bordered w-full @error('sistem_bahan_bakar') border-red-500 @enderror"
+								name="sistem_bahan_bakar"
+								value="{{ old("sistem_bahan_bakar") }}"
+							/>
+							@error('sistem_bahan_bakar')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+							@enderror
+						</div>	
+						
 					</div>
 				</div>
 
@@ -141,31 +213,63 @@
 							/>
 						</svg>
 					</div>
-					<div class="collapse-content grid grid-cols-2 gap-2P">
-						<input
-							type="text"
-							placeholder="Tipe Rangka"
-							class="input input-bordered w-full"
-							name="tipe-rangka"
-						/>
-						<input
-							type="text"
-							placeholder="Ukuran Ban Belakang"
-							class="input input-bordered w-full"
-							name="ukuran-ban-belakang"
-						/>
-						<input
-							type="text"
-							placeholder="Ukuran Ban Depan"
-							class="input input-bordered w-full"
-							name="ukuran-ban-depan"
-						/>
-						<input
-							type="text"
-							placeholder="Sistem Pengereman"
-							class="input input-bordered w-full"
-							name="sistem-pengereman"
-						/>
+					<div class="collapse-content grid grid-cols-2 gap-2">
+						<div>
+								
+							<input
+								type="text"
+								placeholder="Tipe Rangka"
+								class="input input-bordered w-full @error('tipe_mesin') border-red-500 @enderror"
+								name="tipe_rangka"
+								value="{{ old("tipe_rangka") }}"
+							/>
+
+							@error("tipe_rangka")
+								<p class="text-red-500 mt-1">{{ $message }}</p>
+							@enderror
+						</div>
+
+						<div>
+									
+							<input
+								type="text"
+								placeholder="Ukuran Ban Belakang"
+								class="input input-bordered w-full @error('ukuran_ban_belakang') border-red-500 @enderror"
+								name="ukuran_ban_belakang"
+								value="{{ old("ukuran_ban_belakang") }}"
+							/>
+							@error("ukuran_ban_belakang")
+								<p class="text-red-500 mt-1">{{ $message }}</p>
+							@enderror
+						</div>
+
+						<div>
+							<input
+								type="text"
+								placeholder="Ukuran Ban Depan"
+								class="input input-bordered w-full @error('ukuran_ban_depan') border-red-500 @enderror"
+								name="ukuran_ban_depan"
+								value="{{ old("ukuran_ban_depan") }}"
+							/>			
+
+							@error("ukuran_ban_depan")
+								<p class="text-red-500 mt-1">{{ $message }}</p>
+							@enderror
+						</div>
+						
+						<div>
+							<input
+								type="text"
+								placeholder="Sistem Pengereman"
+								class="input input-bordered w-full @error('sistem_pengereman') border-red-500 @enderror"
+								name="sistem_pengereman"
+								value="{{ old("sistem_pengereman") }}"
+							/>			
+							@error("sistem_pengereman")
+								<p class="text-red-500 mt-1">{{ $message }}</p>
+							@enderror
+						</div>	
+						
 					</div>
 				</div>
 				<button class="btn bg-orange-500 col-span-2 w-full md:w-max text-white">
@@ -183,6 +287,7 @@
 								<input
 									type="checkbox"
 									class="toggle toggle-warning"
+									name="visibility"
 									checked
 								/>
 								<span>public</span>
@@ -197,10 +302,11 @@
 						<div class="card-actions my-4">
 							<select
 								class="select select-bordered w-full max-w-xs"
+								name="category"
 							>
-								<option>Matic</option>
-								<option>Sport</option>
-								<option>Cub</option>
+								@foreach($category as $c)
+								<option value="{{ $c->id }}">{{ $c->name }}</option>
+								@endforeach
 							</select>
 						</div>
 					</div>
@@ -209,3 +315,23 @@
 		</form>
 	</div>
 </x-admin-layout>
+<script type="text/javascript">
+	const fileUpload = document.querySelector("#file_upload");
+	const imgContainer = document.querySelector("#image_container");
+
+	fileUpload.addEventListener("change", () => {
+		const file = fileUpload.files;
+		if(file) {
+			const fileReader = new FileReader();
+			fileReader.onload = event => {
+				const img = document.createElement("img");
+				imgContainer.removeChild(imgContainer.firstChild);
+				imgContainer.appendChild(img);
+				img.setAttribute("src", event.target.result);
+				img.classList.add("w-32")
+			}
+
+			fileReader.readAsDataURL(file[0]);
+		}
+	})	
+</script>

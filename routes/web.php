@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\authController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,13 +15,25 @@ Route::get("/contact", function() {
 
 // product
 
-Route::get("/product", function() {
-    return view("product.index");
-})->name("products");
+Route::controller(ProductController::class)->group(function() {
 
-Route::get("/product/{id}", function () {
-    return view("product.product");
-})->name("product");
+    Route::get("/product","index")->name("products");
+    Route::get("/product/{id}","show")->name('product');
+
+    Route::get("/dashboard/product/create","create")->name("dasboard.product.create");
+    Route::post("dashboard/product/store",'store')->name("dashboard.product.store");
+
+    Route::get("dashboard/product/{id}/edit",'edit')->name("dashboard.product.edit");
+    Route::post("dashboard/product/update",'update')->name("dasbhoard.product.update");
+    Route::delete("dasbhoard/product/delete",'destroy')->name("dashboard.product.delete");
+});
+
+// dashboard
+Route::controller(dashboardController::class)->group(function() {
+    Route::get("/dashboard/product",'product')->name("dashboard.product");
+});
+
+
 
 
 Route::get("/search", function() {
@@ -34,17 +48,15 @@ Route::get("/dashboard", function () {
     return view("admin.index");
 })->name("dashboard");
 
-Route::get("/dashboard/product", function() {
-    return view("admin.product.product");
-})->name("dashboard.product");
 
-Route::get("dashboard/product/create", function () {
-    return view("admin.product.create");
-})->name("dasboard.product.create");
 
-Route::get("dashboard/product/{id}/edit", function() {
-    return view("admin.product.edit");
-})->name("dashboard.product.edit");
+// Route::get("dashboard/product/create", function () {
+//     return view("admin.product.create");
+// })->name("dasboard.product.create");
+
+// Route::get("dashboard/product/{id}/edit", function() {
+//     return view("admin.product.edit");
+// })->name("dashboard.product.edit");
 
 // customers
 
@@ -54,7 +66,7 @@ Route::Get("dashboard/custumers", function () {
 
 
 Route::get("/dashboard/customers/create", function () {
-    return view("admin.customers.create");
+   return view("admin.customers.create"); 
 })->name("dashboard.customers.create");
 
 Route::get("/dashboard/customers/{id}/edit", function () {

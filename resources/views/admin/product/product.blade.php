@@ -6,6 +6,14 @@
 		</ul>
 	</div>
 
+
+	@if(session("status"))
+		<div role="alert" class="alert alert-success my-4">
+		  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+		  <span>{{ session("status") }}</span>
+		</div>
+	@endif
+
 	<div class="flex justify-between">
 		<h1 class="text-red-500 text-2xl font-semibold">Product</h1>
 		<a href="{{ route('dasboard.product.create') }}"
@@ -18,17 +26,17 @@
 	<div class="my-6 stats stats-vertical w-full lg:stats-horizontal shadow">
 		<div class="stat">
 			<div class="stat-title">Total Product</div>
-			<div class="stat-value">31K</div>
+			<div class="stat-value">{{ $totalProduct }}</div>
 		</div>
 
 		<div class="stat">
 			<div class="stat-title">Product Inventory</div>
-			<div class="stat-value">4,200</div>
+			<div class="stat-value">{{ $productInventory  }}</div>
 		</div>
 
 		<div class="stat">
 			<div class="stat-title">Avarage Price</div>
-			<div class="stat-value">1,200</div>
+			<div class="stat-value">Rp. {{ Number::format($averagePrice ?? 0) }}</div>
 		</div>
 	</div>
 
@@ -70,7 +78,7 @@
 			</thead>
 
 			<tbody>
-				<!-- row 1 -->
+				@foreach($products as $product)
 				<tr>
 					<th>
 						<label>
@@ -82,20 +90,19 @@
 							<div class="avatar">
 								<div class="mask mask-squircle w-12 h-12">
 									<img
-										src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-beat-3-03062024-050824.png"
-										alt="Avatar Tailwind CSS Component"
+										src="{{ asset("storage/".$product->images)}}"
 									/>
 								</div>
 							</div>
 							<div>
-								<div class="font-bold">BeAT</div>
-								<div class="text-sm opacity-50">2023</div>
+								<div class="font-bold">{{ $product->name }}</div>
+								<div class="text-sm opacity-50">{{ $product->year }}</div>
 							</div>
 						</div>
 					</td>
 					<td>
 						{{-- public --}}
-						<div class="flex gap-2 items-center">
+						<div class="{{ $product->visibility == 'public' ? "flex" : 'hidden' }} gap-2 items-center">
 							<svg
 								class="fill-slate-800 w-6"
 								xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +118,7 @@
 						</div>
 
 						{{-- private --}}
-						<div class="flex gap-2 items-center hidden">
+						<div class="{{ $product->visibility == 'private' ? "flex" : 'hidden' }} gap-2 items-center ">
 							<svg
 								class="fill-slate-800 w-[1.2rem]"
 								xmlns="http://www.w3.org/2000/svg"
@@ -126,12 +133,12 @@
 							<p class="text-xs">private</p>
 						</div>
 					</td>
-					<td>18.000.000</td>
+					<td>Rp. {{ Number::format($product->price) }}</td>
 					<td>8</td>
 					<td
 						class="text-red-500 font-semibold hover:underline "
 					>
-						<a href="{{ route('dashboard.product.edit', '1') }}" class="flex gap-2 items-center">
+						<a href="{{ route('dashboard.product.edit', $product->id) }}" class="flex gap-2 items-center">
 							Edit
 							<svg
 								class="w-4 fill-current"
@@ -146,6 +153,8 @@
 						</a>
 					</td>
 				</tr>
+				@endforeach
+				
 
 				<!-- foot -->
 			</tbody>

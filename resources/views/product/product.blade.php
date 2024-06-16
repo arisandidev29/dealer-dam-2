@@ -3,23 +3,21 @@
 		<div class="max-w-xs text-sm breadcrumbs">
 			<ul>
 				<li><a href="{{ route('products') }}">Produk</a></li>
-				<li><a href="">Nama Produk</a></li>
+				<li><a href="">{{ $product->name }}</a></li>
 			</ul>
 		</div>
 
 
-		<h2 class="my-12 text-2xl md:text-4xl text-red-500 text-center">
-			nama produk
-		</h2>
+		<h2 class="my-12 text-2xl md:text-4xl text-red-500 text-center">{{ $product->name }}</h2>
 
 		<img
-			class="w-full md:w-1/2 mx-auto"
-			src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-1400,f-auto,pr-true/uploads/product/feature/tampak-samping-1-14062023-040332.png"
-			alt=""
+			class="w-full md:w-[40%] my-4 md:my-8 mx-auto"
+			src="{{ asset('storage/'.$product->images) }}"
+			alt="{{ $product->name }}"
 		/>
 
 		<h3 class="text-xl md:text-2xl text-center my-4">
-			Harga <span class="font-semibold">Rp. 18,000,00</span>
+			Harga <span class="font-semibold">Rp. {{ Number::format($product->price) }}</span>
 		</h3>
 
 		<div class="grid gap-4 my-4">
@@ -35,25 +33,20 @@
 								<!-- row 1 -->
 								<tr>
 									<th>Tipe mesin</th>
-									<td>Cy Ganderton</td>
-								</tr>
-								<!-- row 2 -->
-								<tr>
-									<th>Tipe mesin</th>
-									<td>Purple</td>
+									<td>{{ $product->tipe_mesin }}</td>
 								</tr>
 								<!-- row 3 -->
 								<tr>
 									<th>Kopling</th>
-									<td>Red</td>
+									<td>{{ $product->kopling }}</td>
 								</tr>
 								<tr>
 									<th>Busi</th>
-									<td>fdf</td>
+									<td>{{ $product->busi }}</td>
 								</tr>
 								<tr>
 									<th>sistem bahan bakar</th>
-									<td>injeksi</td>
+									<td>{{ $product->sistem_bahan_bakar }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -75,25 +68,22 @@
 								<!-- row 1 -->
 								<tr>
 									<th>Tipe Rangka</th>
-									<td>Cy Ganderton</td>
+									<td>{{ $product->tipe_rangka }}</td>
 								</tr>
 								<!-- row 2 -->
 								<tr>
 									<th>Ukuran Ban Depan</th>
-									<td></td>
+									<td>{{ $product->ukuran_ban_depan }}</td>
 								</tr>
 								<!-- row 3 -->
 								<tr>
 									<th>Rem Depan</th>
-									<td></td>
+									<td>{{ $product->ukuran_ban_belakang}}</td>
 								</tr>
-								<tr>
-									<th>Rem Belakang</th>
-									<td>fdf</td>
-								</tr>
+								
 								<tr>
 									<th>sistem bahan bakar</th>
-									<td>injeksi</td>
+									<td>{{ $product->sistem_bahan_bakar }}</td>
 								</tr>
 							</tbody>
 						</table>

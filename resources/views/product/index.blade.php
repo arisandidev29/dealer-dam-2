@@ -159,39 +159,43 @@
 		</div>
 
 		<div class="my-8">
-			<h2 class="text-xl md:text-3xl text-red-500 my-8 mt-12">Semua Produk</h2>
+			<h2 class="text-xl md:text-3xl text-red-500 my-8 mt-12">
+				Semua Produk
+			</h2>
 
 			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-				@for($i = 1; $i <= 4; $i++)
+				@foreach($products as $product)
 				<div class="card bg-base-100 shadow-xl">
 					<figure class="overflow-hidden">
 						<img
-							src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-beat-3-03062024-050824.png"
+							src="{{ asset("storage/".$product->images) }}"
 							alt="Shoes"
 							class="hover:scale-125 duration-300 transition-all"
 						/>
 					</figure>
 					<div class="card-body">
 						<div class="flex gap-2 items-center">
-							<h2 class="card-title">BeAT</h2>
+							<h2 class="card-title">{{ $product->name }}</h2>
 							<span class="badge badge-primary">new</span>
 						</div>
 						<p class="text-xs md:text-base">Harga mulai</p>
 						<h3
 							class="text-xs md:text-xl text-slate-800 font-semibold"
-						>
-							Rp. 18,430,000
+							 >
+							 {{Number::format($product->price) }}
 						</h3>
 						<div class="card-actions justify-end">
-							<button
-								class="btn btn-sm md:btn-md bg-white text-red-500 border-red-500 border-solid border-2 hover:bg-red-500 hover:text-white"
-							>
-								Lihat Detail
-							</button>
+							<a href="{{ route('product',$product->id) }}">
+								<button
+									class="btn btn-sm md:btn-md bg-white text-red-500 border-red-500 border-solid border-2 hover:bg-red-500 hover:text-white"
+								>
+									Lihat Detail
+								</button>
+							</a>
 						</div>
 					</div>
 				</div>
-				@endfor
+				@endforeach
 			</div>
 		</div>
 	</div>
