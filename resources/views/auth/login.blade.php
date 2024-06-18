@@ -9,7 +9,15 @@
 			<hr>
 
 			<h2 class=" text-center  text-2xl  md:text-4xl text-red-500 my-2 md:my-4 mt-6 md:mt-8">Sing in</h2>
-			<form action="" class="mt-4 md:mt-8 max-w-xs mx-auto">
+			<form action="{{ route('doLogin') }}" method="post" class="mt-4 md:mt-8 max-w-xs mx-auto">
+				@csrf
+				@if(session("status"))
+						<div role="alert" class="alert alert-error my-2">
+						  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+						  <span>{{ session("status") }}</span>
+						</div>
+				@endif
+
 				<div class="mb-4 md:mb-6">
 					<p class="text-base md:text-lg">Username</p>
 					<label class="input input-bordered input-sm md:input-lg flex items-center gap-2">
@@ -27,8 +35,14 @@
 							type="text"
 							class=" grow"
 							placeholder="Username"
+							name="username"
+							value="{{ old("username") }}"
 						/>
 					</label>
+
+					@error('username')
+						<p class="text-red-500 text-sm md:text-base mt-1">{{ $message }}</p>
+					@enderror
 				</div>
 
 				<div>
@@ -47,8 +61,11 @@
 								clip-rule="evenodd"
 							/>
 						</svg>
-						<input type="password" class="grow" value="password" />
+						<input type="password" class="grow" placeholder="password" name="password" />
 					</label>
+					@error('password')
+						<p class="text-red-500 text-sm md:text-base mt-1">{{ $message }}</p>
+					@enderror
 				</div>
 
 				<button
@@ -64,6 +81,7 @@
 							type="checkbox"
 							checked="checked"
 							class="checkbox checkbox-xs md:checkbox-md checkbox-warning"
+							name="remember"
 						/>
 					</label>
 

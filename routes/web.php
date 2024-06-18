@@ -29,7 +29,8 @@ Route::controller(ProductController::class)->group(function() {
 });
 
 // dashboard
-Route::controller(dashboardController::class)->group(function() {
+Route::controller(dashboardController::class)->middleware(['role:admin|editor'])->group(function() {
+    Route::get("/dashboard", 'index')->name('dashboard');
     Route::get("/dashboard/product",'product')->name("dashboard.product");
 });
 
@@ -41,22 +42,6 @@ Route::get("/search", function() {
 })->name("search");
 
 
-
-// admin
-
-Route::get("/dashboard", function () {
-    return view("admin.index");
-})->name("dashboard");
-
-
-
-// Route::get("dashboard/product/create", function () {
-//     return view("admin.product.create");
-// })->name("dasboard.product.create");
-
-// Route::get("dashboard/product/{id}/edit", function() {
-//     return view("admin.product.edit");
-// })->name("dashboard.product.edit");
 
 // customers
 
@@ -85,6 +70,11 @@ Route::get("/dashboard/user", function () {
 
 Route::controller(authController::class)->group(function() {
     Route::get("login",'login')->name("login");
+    Route::post("login",'doLogin')->name("doLogin");
     Route::get("register",'register')->name("register");
+    Route::post("doRegister",'doRegister')->name("doRegister");
     Route::get("profilePic",'ProfilePic')->name("profilePic");
+    Route::post("changePicture",'changePicture')->name("changePicture");
+
+    Route::get("logout",'logout')->name("logout");
 });

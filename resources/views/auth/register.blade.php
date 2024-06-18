@@ -24,7 +24,9 @@
 				Create Your Account
 			</h2>
 
-			<form action="" class="grid gap-4 max-w-xs mx-auto">
+			<form action="{{ route('doRegister') }}" method="post" class="grid gap-4 max-w-xs mx-auto">
+
+				@csrf
 				<div>
 					<p>Nama</p>
 					<label class="input input-bordered flex items-center gap-2">
@@ -42,8 +44,16 @@
 							type="text"
 							class="grow"
 							placeholder="Name"
+							name="name"
 						/>
+
+						
 					</label>
+
+					@error('name')
+							<p class="text-red-500 text-sm md:text-base my-1">{{ $message }}</p>
+						@enderror
+
 				</div>
 
 				<div>
@@ -62,8 +72,14 @@
 								d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"
 							/>
 						</svg>
-						<input type="text" class="grow" placeholder="Email" />
+						<input type="text" class="grow" placeholder="Email" name="email" />
+
+						
 					</label>
+
+					@error('email')
+							<p class="text-red-500 text-sm md:text-base my-1">{{ $message }}</p>
+						@enderror
 				</div>
 
 				<div>
@@ -85,8 +101,15 @@
 							type="password"
 							class="grow"
 							placeholder="password"
+							name="password"
 						/>
+
+					
 					</label>
+
+						@error('password')
+							<p class="text-red-500 text-sm md:text-base my-1">{{ $message }}</p>
+						@enderror
 				</div>
 
 				<button class="btn bg-orange-500 text-white">Register</button>

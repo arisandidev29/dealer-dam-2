@@ -22,7 +22,7 @@
                                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                                     />
                            </svg>
-                           Dashboard
+                           Dashboard 
 
                     </a>
                   </li>
@@ -56,6 +56,9 @@
                             Costumers
                         </a>
                   </li>
+
+                  @role('admin')
+                  {{-- @if(auth()->user()->hasRole('admin')) --}}
                   <li class="{{ Route::is("dashboard.user") ? "active_sidebar" : '' }}">
                         <a href="{{ route('dashboard.user') }}">
                             <svg
@@ -71,7 +74,12 @@
                             Users
                         </a>
                     </li>
+
+                    {{-- @endif --}}
+                    @endhasrole
+                    {{-- {{ dd(auth()->user()->getRoleNames()) }} --}}
                 </ul>
+
 
                 {{ $slot }}
             </div>
@@ -84,7 +92,7 @@
                     class="drawer-overlay"
                 ></label>
                 <ul
-                    class="menu bg-base-200 w-72 py-6 h-screen gap-2 text-lg rounded-box"
+                    class="menu bg-base-200 w-72 py-8 h-screen gap-2 text-lg rounded-box"
                 >
                     <li class="{{ Route::is('dashboard') ? 'active_sidebar' : "" }}">
                         <a href="{{ route('dashboard') }}">
@@ -135,6 +143,8 @@
                             Costumers
                         </a>
                     </li>
+
+                    @role("admin")
                     <li class="{{ Route::is("dashboard.user") ? "active_sidebar" : '' }}">
                         <a href="{{ route('dashboard.user') }}">
                             <svg
@@ -150,6 +160,7 @@
                             Users
                         </a>
                     </li>
+                    @endrole
                 </ul>
             </div>
         </div>

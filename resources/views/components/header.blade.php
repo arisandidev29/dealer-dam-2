@@ -1,4 +1,5 @@
 <header class="fixed top-0 left-0 w-screen z-40">
+    {{-- {{ Auth::user()->getRoleNames()  }} --}}
     <div class="drawer">
         <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col">
@@ -25,7 +26,7 @@
                         </svg>
                     </label>
                 </div>
-                <div class="flex-1 px-2 mx-2 text-white text-2xl">
+                <div class="flex-1 grow px-2 mx-2 text-white text-2xl">
                     <a href="{{ route('home') }}">
                         Dealer <span class="text-yellow-500"> DAM</span>
                     </a>
@@ -60,13 +61,63 @@
                             />
                         </svg>
                     </label>
-                    <a href="{{ route('login') }}"
-                        ><button
-                            class="btn bg-orange-500 text-white border-none"
-                        >
-                            Login
-                        </button></a
-                    >
+                    <div class="flex gap-2 items-center ">
+                        @if(Auth::check())
+                            {{-- <details class="dropdown">
+                              <summary class="m-1 btn hover:bg-transparent bg-transparent h-full border-none">
+                                  <div class="avatar">
+                                      <div class="w-16 rounded-full">
+                                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                      </div>
+                                 </div>
+                              </summary>
+                              <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                <li><a>Item 1</a></li>
+                                <li><a>Item 2</a></li>
+                              </ul>
+                            </details> --}}
+                            
+                            <div class="dropdown dropdown-bottom dropdown-end">
+                              <div tabindex="0" role="button" class="btn m-1 hover:bg-transparent bg-transparent h-full border-none">
+                                  <div class="avatar">
+                                      <div class="w-12 md:w-16 rounded-full">
+                                        <img src="{{ asset('storage/'. auth()->user()->images) }}" />
+                                      </div>
+                                 </div>
+                              </div>
+                              <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
+                                <li class="text-center flex items-baseline font-bold ">
+                                    <p class="my-0">{{ Auth::user()->name }}</p>
+                                </li>
+
+
+                                @hasanyrole('admin|editor')
+                                <li>
+                                    <a href="{{ route('dashboard') }}">
+                                        Dashboard
+                                    </a>     
+                                </li>
+                                @endhasanyrole
+
+                                <li>
+                                    <a href="{{ route('logout') }}">
+                                      Logout
+                                    </a>
+                                  </li>
+                              </ul>
+                            </div> 
+                        @else
+                            <a href="{{ route('login') }}"
+                            >
+                            <button
+                                class="btn bg-orange-500 text-white border-none"
+                            >
+                                Login
+                            </button></a
+         jk               >
+                        @endif
+
+                    </div>
                 </div>
             </div>
         </div>

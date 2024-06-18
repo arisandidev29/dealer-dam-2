@@ -9,9 +9,9 @@
 		</div>
 		<div>
 			<h3 class="text-lg font-semibold">Welcome</h3>
-			<p class="text-xs">Username</p>
+			<p class="text-xs">{{ auth()->user()->name }}</p>
 		</div>
-		<p class="grow text-right text-sm self-center">Account type Admin</p>
+		<p class="grow text-right text-sm self-center">Account type {{ auth()->user()->getRoleNames()->first() }}</p>
 	</div>
 
 	<!-- stat dashboard -->
