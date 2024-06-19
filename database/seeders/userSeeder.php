@@ -13,7 +13,20 @@ class userSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
+
     {
+
+
+        for ($i=0; $i < 5; $i++) { 
+            $user = User::create([
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'email_verified_at' => now(),
+                 'password' =>  Hash::make('password'),
+            ]);
+
+            $user->assignRole('customer');
+        }
         $admin = User::create([
             'name' => 'arisandi',
             'email' => fake()->unique()->safeEmail(),
@@ -24,15 +37,7 @@ class userSeeder extends Seeder
 
         $admin->assignRole("admin");
 
-        $editor = User::create([
-             'name' => 'nandi',
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-        ]);
-
-
-        $editor->assignRole('editor');
+   
 
 
     }

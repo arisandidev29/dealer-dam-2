@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class dashboardController extends Controller
 {
@@ -20,5 +22,11 @@ class dashboardController extends Controller
             'productInventory' => $product->count(),
             'averagePrice' => $product->avg("price")
          ]);    
+    }
+
+    public function users() {
+            return view("admin.user.index", [
+                'users' => User::all()
+            ]);
     }
 }

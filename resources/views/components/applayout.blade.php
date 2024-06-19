@@ -13,6 +13,10 @@
         
         <script src="https://kit.fontawesome.com/6d82e3b00d.js" crossorigin="anonymous"></script>
 
+        {{-- alphine js --}}
+
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
         <script>
             if (
                 localStorage.theme === "dark" ||

@@ -3,6 +3,7 @@
 use App\Http\Controllers\authController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,8 +33,16 @@ Route::controller(ProductController::class)->group(function() {
 Route::controller(dashboardController::class)->middleware(['role:admin|editor'])->group(function() {
     Route::get("/dashboard", 'index')->name('dashboard');
     Route::get("/dashboard/product",'product')->name("dashboard.product");
+    Route::get("/dashboard/users",'users')->name("dashboard.user");
+
 });
 
+
+// users dashboard
+
+Route::controller(usersController::class)->group(function() {
+    Route::post("user/changeRole",'changeRole')->name('changeRole');
+});
 
 
 
@@ -57,12 +66,6 @@ Route::get("/dashboard/customers/create", function () {
 Route::get("/dashboard/customers/{id}/edit", function () {
     return view("admin.customers.edit");
 })->name("dashboard.customers.edit");
-
-// users
-
-Route::get("/dashboard/user", function () {
-    return view("admin.user.index");
-})->name("dashboard.user");
 
 
 // auth
