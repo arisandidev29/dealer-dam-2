@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\authController;
+use App\Http\Controllers\customersController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\usersController;
@@ -34,7 +35,7 @@ Route::controller(dashboardController::class)->middleware(['role:admin|editor'])
     Route::get("/dashboard", 'index')->name('dashboard');
     Route::get("/dashboard/product",'product')->name("dashboard.product");
     Route::get("/dashboard/users",'users')->name("dashboard.user");
-
+    Route::get("/dasboard/customers", 'customers')->name("dashboard.customers");
 });
 
 
@@ -44,6 +45,14 @@ Route::controller(usersController::class)->group(function() {
     Route::post("user/changeRole",'changeRole')->name('changeRole');
 });
 
+// customers
+
+Route::controller(customersController::class)->group(function() {
+    Route::post("/dashboard/customer/create",'create')->name("dashboard.customer.create");
+    Route::get("/dashboard/customer/{id}/edit",'edit')->name("dashboard.customer.edit");
+    Route::post("/dashboard/customer/update",'update')->name("dashboard.customer.update");
+    Route::delete("/dasbhoard/customer/delete",'destroy')->name("dashboard.customer.delete");
+});
 
 
 Route::get("/search", function() {
@@ -52,20 +61,12 @@ Route::get("/search", function() {
 
 
 
-// customers
-
-Route::Get("dashboard/custumers", function () {
-    return view("admin.customers.index");
-})->name("dashboard.customers");
 
 
 Route::get("/dashboard/customers/create", function () {
    return view("admin.customers.create"); 
 })->name("dashboard.customers.create");
 
-Route::get("/dashboard/customers/{id}/edit", function () {
-    return view("admin.customers.edit");
-})->name("dashboard.customers.edit");
 
 
 // auth

@@ -24,6 +24,12 @@ class dashboardController extends Controller
          ]);    
     }
 
+    public function customers() {
+        return view("admin.customers.index", [
+            'customers' => User::role("customer")->get()->toJson(JSON_PRETTY_PRINT)
+        ]);
+    }
+
     public function users() {
             return view("admin.user.index", [
                 'users' => User::all()
