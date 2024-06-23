@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             "name" => fake()->name(),
             'year' => fake()->year(),
             "price" => rand(13000000, 30000000),
+            "quantity" => fake()->randomNumber(),
             "images" => "https://placehold.co/600x400",
             "visibility" => fake()->randomElement(['private','public']),
             'tipe_mesin' => fake()->text(10),

@@ -16,8 +16,10 @@ class dashboardController extends Controller
     }
 
     public function product(product $product) {
+        // dd($product->all()->toJson(JSON_PRETTY_PRINT));
          return view("admin.product.product",[
-            "products" => $product->all(),
+            "paginateRroducts" => $product->paginate(10),
+            "allProducts" => $product->all(),
             "totalProduct" => $product->where('visibility','public')->count(),
             'productInventory' => $product->count(),
             'averagePrice' => $product->avg("price")
@@ -25,6 +27,7 @@ class dashboardController extends Controller
     }
 
     public function customers() {
+        // dd(User::role("customer")->get()->toJson(JSON_PRETTY_PRINT));
         return view("admin.customers.index", [
             'customers' => User::role("customer")->get()->toJson(JSON_PRETTY_PRINT)
         ]);

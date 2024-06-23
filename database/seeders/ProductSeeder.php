@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         
-        $product = product::factory()->count(5)->create();    
+        $product = product::factory()->count(10)->create();    
 
         // $category = category::select("id")->pluck('id');
 

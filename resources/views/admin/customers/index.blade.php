@@ -92,7 +92,6 @@
 								    <div class="modal-action justify-center gap-4">
 								    	<form action="{{ route('dashboard.customer.delete') }}" method="post">
 											@csrf
-											@method("delete")
 											<input type="hidden" :value="customer.id" name="id">
 											<button class="btn btn-error text-white">Delete</button>
 										</form>

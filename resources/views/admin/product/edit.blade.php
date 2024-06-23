@@ -59,7 +59,7 @@
 					</label>
 				</div>
 
-				<div class="col-span-2">
+				<div >
 					<p class="text-sm">Price</p>
 					<label class="input input-bordered flex items-center gap-2 @error('price') border-red-500 @enderror">
 						<input
@@ -71,6 +71,22 @@
 						/>
 					</label>
 					@error('price')
+								<p class="mt-1 text-red-500">{{ $message }}</p>
+					@enderror
+				</div>
+
+				<div >
+					<p class="text-sm">Quantity</p>
+					<label class="input input-bordered flex items-center gap-2 @error('name') border-red-500 @enderror">
+						<input
+							type="text"
+							class="grow"
+							placeholder="10"
+							name="quantity"
+							value="{{ old("quantity", $product->quantity) }}"
+						/>
+					</label>
+					@error('quantity')
 								<p class="mt-1 text-red-500">{{ $message }}</p>
 					@enderror
 				</div>
