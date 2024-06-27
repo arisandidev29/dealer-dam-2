@@ -1,4 +1,5 @@
 <x-admin-layout>
+	{{-- {{ dd($visitorData) }} --}}
 	<div class="flex gap-2 py-4 px-4 w-full rounded-lg bg-slate-300">
 		<div class="avatar">
 			<div class="w-12 rounded-full">
@@ -30,8 +31,8 @@
 				</svg>
 			</div>
 			<div class="stat-title">Total Product</div>
-			<div class="stat-value text-primary">25.6K</div>
-			<div class="stat-desc">21% more than last month</div>
+			<div class="stat-value text-primary">{{ $totalProduct }}</div>
+			<div class="stat-desc">public product</div>
 		</div>
 
 		<div class="stat">
@@ -48,8 +49,8 @@
 				</svg>
 			</div>
 			<div class="stat-title">Visitor</div>
-			<div class="stat-value text-secondary">2.6M</div>
-			<div class="stat-desc">21% more than last month</div>
+			<div class="stat-value text-secondary">{{ $totalVisitor }}</div>
+			<div class="stat-desc"></div>
 		</div>
 	</div>
 	<div>
@@ -69,23 +70,19 @@
 		},
 		data: {
 			labels: [
-				"January",
-				"Febuary",
-				"Maret",
-				"April",
-				"Mei",
-				"Juni",
-				"Juli",
-				"Agustus",
-				"September",
-				"Oktober",
-				"November",
-				"Desember",
+				@foreach($visitorData as $visitor)
+					"{{  $visitor['bulan'] }}" ,
+				@endforeach
 			],
 			datasets: [
 				{
-					label: "Data Visitor 2024",
-					data: [12, 19, 3, 5, 2, 3],
+					label: "Data Visitor {{ now()->year }}",
+					data: [
+							@foreach($visitorData as $visitor)
+								"{{ $visitor['ip']  }}" , 
+							@endforeach
+
+						],
 					borderWidth: 1,
 				},
 			],
