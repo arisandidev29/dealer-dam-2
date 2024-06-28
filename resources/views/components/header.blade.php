@@ -63,21 +63,9 @@
                     </label>
                     <div class="flex gap-2 items-center ">
                         @if(Auth::check())
-                            {{-- <details class="dropdown">
-                              <summary class="m-1 btn hover:bg-transparent bg-transparent h-full border-none">
-                                  <div class="avatar">
-                                      <div class="w-16 rounded-full">
-                                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                      </div>
-                                 </div>
-                              </summary>
-                              <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                <li><a>Item 1</a></li>
-                                <li><a>Item 2</a></li>
-                              </ul>
-                            </details> --}}
-                            
+         
                             <div class="dropdown dropdown-bottom dropdown-end">
+                            @if(auth()->user()->images) 
                               <div tabindex="0" role="button" class="btn m-1 hover:bg-transparent bg-transparent h-full border-none">
                                   <div class="avatar">
                                       <div class="w-12 md:w-16 rounded-full">
@@ -85,6 +73,14 @@
                                       </div>
                                  </div>
                               </div>
+                            @else
+                                <div tabindex="0" role="button" class="avatar  placeholder">
+                                  <div class="bg-neutral text-neutral-content w-12 rounded-full">
+                                    <span x-data class="text-xl" x-text="getInitials('{{ auth()->user()->name }}')"><p></p>
+                                    </span>
+                                  </div>
+                                </div>
+                            @endif
                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
                                 <li class="text-center flex items-baseline font-bold ">
                                     <p class="my-0">{{ Auth::user()->name }}</p>
@@ -163,3 +159,18 @@
         </div>
     </div>
 </header>
+<script>
+
+    function getInitials(name) {
+        let names = name.split(' ')
+        let initials = names[0].substring(0, 1).toUpperCase();
+
+        if(names.length > 1) {
+            initials += names[names.length - 1].substring(0, 1).toUpperCase();
+        }
+
+        return initials;
+    }
+   
+
+</script>

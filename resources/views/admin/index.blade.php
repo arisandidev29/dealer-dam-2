@@ -1,18 +1,29 @@
 <x-admin-layout>
 	{{-- {{ dd($visitorData) }} --}}
-	<div class="flex gap-2 py-4 px-4 w-full rounded-lg bg-slate-300">
+	<div class="flex gap-2 py-4 px-4 w-full rounded-lg bg-slate-300 my-2">
+		@if(auth()->user()->images)
 		<div class="avatar">
 			<div class="w-12 rounded-full">
 				<img
-					src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+					src="{{ asset('storage/user/' . auth()->user()->images) }}"
 				/>
 			</div>
 		</div>
-		<div>
+		@else
+		<div  class="avatar  placeholder">
+            <div class="bg-neutral text-neutral-content w-12 rounded-full">
+                <span x-data class="text-xl" x-text="getInitials('{{ auth()->user()->name }}')"><p></p>
+                 </span>
+            </div>
+        </div>
+
+        @endif
+
+		<div class="dark:text-slate-800">
 			<h3 class="text-lg font-semibold">Welcome</h3>
 			<p class="text-xs">{{ auth()->user()->name }}</p>
 		</div>
-		<p class="grow text-right text-sm self-center">Account type {{ auth()->user()->getRoleNames()->first() }}</p>
+		<p class="grow text-right text-sm self-center dark:text-slate-800">Account type <span class="badge badge-neutral">{{ auth()->user()->getRoleNames()->first() }}</span> </p>
 	</div>
 
 	<!-- stat dashboard -->
@@ -24,7 +35,6 @@
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 448 512"
 				>
-					<!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 					<path
 						d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
 					/>
@@ -61,6 +71,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+	  function getInitials(name) {
+        let names = name.split(' ')
+        let initials = names[0].substring(0, 1).toUpperCase();
+
+        if(names.length > 1) {
+            initials += names[names.length - 1].substring(0, 1).toUpperCase();
+        }
+
+        return initials;
+    }
+
+
 	const ctx = document.getElementById("myChart");
 
 	new Chart(ctx, {
