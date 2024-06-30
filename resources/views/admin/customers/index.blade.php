@@ -86,12 +86,13 @@
 							<!-- Open the modal using ID.showModal() method -->
 								<button class="btn btn-error text-white" onclick="my_modal_1.showModal()">Delete</button>
 								<dialog id="my_modal_1" class="modal">
-								  <div class="modal-box">
-								    <h3 class="font-bold text-lg">Hello!</h3>
-								    <p class="py-4" class="text-xl text-center" x-text="'are your sure delete ' + customer.name " ></p>
+								  <div class="modal-box text-center">
+								    <h3 class="font-bold text-lg" >Alert !!</h3>
+								    <p class="py-4" class="text-xl text-center" x-text="'are your sure delete customer ' + customer.name " ></p>
 								    <div class="modal-action justify-center gap-4">
 								    	<form action="{{ route('dashboard.customer.delete') }}" method="post">
 											@csrf
+											@method("delete")
 											<input type="hidden" :value="customer.id" name="id">
 											<button class="btn btn-error text-white">Delete</button>
 										</form>

@@ -49,6 +49,10 @@ class authController extends Controller
 
         Auth::attempt($validated);
 
+        $user = User::find(Auth::id());
+
+        $user->assignRole("customer");
+
         return redirect()->route('profilePic');
     }
     public function profilePic()
@@ -57,18 +61,19 @@ class authController extends Controller
     }
 
     public function changePicture(Request $request) {
-        // $images = $request->file("images");
-
 
         $user = User::find(Auth::id());
+
 
         $path =  $request->file("images")->store('user');
 
 
         $user->images = $path;
 
+
         $user->save();
-        dd($user);
+
+
 
         return redirect()->route('home');
 

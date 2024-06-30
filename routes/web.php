@@ -46,6 +46,7 @@ Route::controller(dashboardController::class)->middleware(['role:admin|editor', 
 
 Route::controller(usersController::class)->group(function () {
     Route::post("user/changeRole", 'changeRole')->name('changeRole');
+    Route::delete("user/delete",'destroy')->name("deleteUser");
 });
 
 // customers

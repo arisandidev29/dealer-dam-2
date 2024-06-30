@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isNull;
 
 class usersController extends Controller
 {
@@ -24,5 +27,18 @@ class usersController extends Controller
         return back()->with('status','change role user ' . $user->name . ' success');
 
 
+    }
+
+    public function destroy(Request $request)
+    {
+        $id = $request->input('id');
+        $deleteUser = User::find($id);
+        if(!isNull($deleteUser->images)) {
+             Storage::delete($deleteUser->images);
+        }
+
+        $deleteUser->delete();
+
+         return redirect()->route('dashboard.user')->with("status","success delete User"); 
     }
 }

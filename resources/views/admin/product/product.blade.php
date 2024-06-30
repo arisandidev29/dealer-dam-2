@@ -192,10 +192,10 @@
 								</svg>
 							</a>
 						</td>
-						<td>
+						<td  x-data="{ modal : 'modal_' + product.id }">
 							<!-- Open the modal using ID.showModal() method -->
-							<button class="btn btn-error text-white" onclick="my_modal_1.showModal()">delete</button>
-							<dialog id="my_modal_1" class="modal">
+							<button class="btn btn-error text-white" @click="showDialog(modal)">delete</button>
+							<dialog  :id="modal" class="modal">
 							  <div class="modal-box text-center">
 							    <h3 class="font-bold text-lg text-center">Alert ‼️ </h3>
 							    <p class="py-4" x-text="'are your sure delete ' + product.name + ' 🤔'"></p>
@@ -231,7 +231,7 @@
 					<th>Name</th>
 					<th>Visibility</th>
 					<th>Price</th>
-					<th @click="console.log(data)">Quantity</th>
+					<th >Quantity</th>
 					<th ></th>
 				</tfoot>
 			</table>
@@ -242,5 +242,7 @@
 	
 </x-admin-layout>
 <script>
-	
+	function showDialog(el) {
+		document.querySelector('#' + el).showModal();
+	}	
 </script>
