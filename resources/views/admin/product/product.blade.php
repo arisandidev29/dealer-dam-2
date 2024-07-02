@@ -193,7 +193,6 @@
 							</a>
 						</td>
 						<td  x-data="{ modal : 'modal_' + product.id }">
-							<!-- Open the modal using ID.showModal() method -->
 							<button class="btn btn-error text-white" @click="showDialog(modal)">delete</button>
 							<dialog  :id="modal" class="modal">
 							  <div class="modal-box text-center">

@@ -1,5 +1,5 @@
 <x-applayout>
-	<div class="carousel w-full h-96 mt-16">
+	<div class="carousel w-full h-96 mt-[4.3rem]">
 		<div id="slide1" class="carousel-item relative w-full">
 			<img
 				src="https://tunassaktihonda.id/wp-content/uploads/2022/02/lifestyle-banner-revisi-3-2-02022022-063110-1024x426.jpg"
@@ -38,40 +38,43 @@
 		</div>
 	</div>
 
-	<div class="w-[90%] mx-auto py-6 mt-12">
+	<div class="w-[90%] mx-auto py-6 overflow-hidden mt-12">
 		<h1 class="text-red-500 text-500 text-center text-3xl">
 			Produk Terbaru
 		</h1>
 
-		<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-			@for($i = 1; $i <= 4; $i++)
-			<div class="card bg-base-100 shadow-xl">
+		<div class="grid grid-cols-2  md:grid-cols-4 gap-4 mt-6">
+			@foreach($newProducts as $product)
+			<div class="card   bg-base-100 shadow-xl ">
 				<figure class="overflow-hidden">
 					<img
-						src="https://ik.imagekit.io/zlt25mb52fx/ahmcdn/tr:w-550,f-auto/uploads/product/thumbnail/thumbnail-beat-3-03062024-050824.png"
-						alt="Shoes"
-						class="hover:scale-125 duration-300 transition-all"
+						src="{{ asset('storage/' . $product->images) }}"
+						alt="{{ $product->name }}"
+						class="hover:scale-125 w-[80%] mx-auto duration-300 transition-all"
 					/>
 				</figure>
 				<div class="card-body">
+					<div class="badge bg-red-500 dark:bg-slate-600 text-white">new</div>
 					<div class="flex gap-2 items-center">
-						<h2 class="card-title">BeAT</h2>
-						<span class="badge badge-primary">new</span>
+						<h2 class="card-title">{{ $product->name }}</h2>
 					</div>
 					<p class="text-xs md:text-base">Harga mulai</p>
 					<h3 class="text-xs md:text-xl text-slate-800 font-semibold">
-						Rp. 18,430,000
+						Rp. {{Number::format($product->price) }} 
 					</h3>
 					<div class="card-actions justify-end">
-						<button
+						<a href="{{ route('product',$product->id) }}">
+							<button
 							class="btn btn-sm md:btn-md bg-white text-red-500 border-red-500 border-solid border-2 hover:bg-red-500 hover:text-white"
 						>
 							Lihat Detail
 						</button>
+						</a>
+						
 					</div>
 				</div>
 			</div>
-			@endfor
+			@endforeach
 		</div>
 
 		<div id="category" class="my-8">
@@ -167,22 +170,24 @@
 				@foreach($products as $product)
 				<div class="card bg-base-100 shadow-xl">
 					<figure class="overflow-hidden">
-						<img
-							src="{{ asset("storage/".$product->images) }}"
+						<img src="{{ asset("storage/".$product->images) }}"
 							alt="Shoes"
-							class="hover:scale-125 duration-300 transition-all"
+							class="hover:scale-125 w-[80%] mx-auto duration-300 transition-all"
 						/>
+
 					</figure>
 					<div class="card-body">
+						@if($product->new)
+							<div class="badge bg-red-500 text-white">New</div>
+						@endif
 						<div class="flex gap-2 items-center">
 							<h2 class="card-title">{{ $product->name }}</h2>
-							<span class="badge badge-primary">new</span>
 						</div>
 						<p class="text-xs md:text-base">Harga mulai</p>
 						<h3
 							class="text-xs md:text-xl text-slate-800 font-semibold"
 							 >
-							 {{Number::format($product->price) }}
+							 Rp. {{Number::format($product->price) }}
 						</h3>
 						<div class="card-actions justify-end">
 							<a href="{{ route('product',$product->id) }}">
@@ -196,6 +201,9 @@
 					</div>
 				</div>
 				@endforeach
+			</div>
+			<div class="my-4">
+				{{ $productsPaginate->links() }}
 			</div>
 		</div>
 	</div>

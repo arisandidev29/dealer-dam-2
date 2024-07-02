@@ -13,7 +13,8 @@ class product extends Model
         'name','year', 'price', 'quantity','images',
         'visibility','tipe_mesin',
         'busi','kopling','sistem_bahan_bakar',
-        'tipe_rangka','ukuran_ban_belakang','ukuran_ban_depan','sistem_pengereman'
+        'tipe_rangka','ukuran_ban_belakang','ukuran_ban_depan','sistem_pengereman',
+        'created_at'
     ];
 
     public function category() {

@@ -7,6 +7,7 @@ use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -15,10 +16,22 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = product::where("visibility","public")->get();
+        
 
+        $newProduct = product::whereDate("created_at", '>', now()->subYear())->orderBy('created_at','desc')->limit(4)->get();
+        $productsPaginate = product::where("visibility","public")->orderBy('name','asc')->paginate(5);
+                        ;
+        $products = $productsPaginate->map(function ($item) {
+                            if(Carbon::parse($item->created_at)->isAfter(now()->subWeeks())) {
+                                $item->new = true;
+                             }
+
+                             return $item;
+                         });
         return view("product.index", [
-            'products' => $products
+            'products' => $products,
+            'productsPaginate' => $productsPaginate,
+            'newProducts' => $newProduct
         ]);
     }
 
